@@ -1,0 +1,34 @@
+{
+  "name": "36-1st-team-corner-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wecode-bootcamp-korea/36-1st-Team-Corner-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wecode-bootcamp-korea/36-1st-Team-Corner-backend/issues"
+  },
+  "homepage": "https://github.com/wecode-bootcamp-korea/36-1st-Team-Corner-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1",
+    "typeorm": "^0.3.7"
+  },
+  "devDependencies": {
+    "dbmate": "^1.0.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "tree": "^0.1.3"
+  }
+}
