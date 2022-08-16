@@ -28,7 +28,6 @@
   "devDependencies": {
     "dbmate": "^1.0.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.19",
-    "tree": "^0.1.3"
+    "nodemon": "^2.0.19"
   }
 }
