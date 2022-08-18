@@ -10,8 +10,8 @@ CREATE TABLE `products` (
   `detail` varchar(3000),
   `thumbnail_image_url` varchar(2048) NOT NULL,
   `stock` int NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `category_id` int NOT NULL,
   CONSTRAINT `products_category_id_fk` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
