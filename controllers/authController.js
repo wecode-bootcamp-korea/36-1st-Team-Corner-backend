@@ -22,7 +22,10 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    
+    if ( !email || !password ) {
+      return res.status(400).json({ message: 'KEY_ERROR' });
+}
     const accessToken = await authService.signIn(email, password);
 
     res.status(200).json({ accessToken: accessToken });
