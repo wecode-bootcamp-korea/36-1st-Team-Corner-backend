@@ -7,7 +7,6 @@ const signUp = async (req, res) => {
     if ( !email || !password ) {
         return res.status(400).json({ message: 'KEY_ERROR' });
     }
-    console.log(email)
     await authService.signUp(email, password, name);
 
     res.status(201).json("SIGNUP_SUCCESS");
