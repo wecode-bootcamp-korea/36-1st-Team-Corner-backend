@@ -1,23 +1,21 @@
-const validateEmailPw = (email, password) => {
+const validateEmail = (email) => {
     const emValidation = new RegExp(
         /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
     );
     if(!emValidation.test(email)){
-        const err = new Error("EMAIL_NOT_AVAILABLE")
+        const err = new Error("INVAILD_USER")
         err.statusCode = 400;
         throw err;
-        }
+        }}
 
+const validatePw = (password) => {
     const pwValidation = new RegExp(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,16}$/
     );
     
     if (!pwValidation.test(password)) {
-        const err = new Error("PASSWORD_NOT_AVAILABLE");
+        const err = new Error("INVAILD_USER");
         err.statusCode = 400;
-        throw err;
-   
-    }
-};
+        throw err;}};
       
-module.exports = {validateEmailPw};  
+module.exports = {validateEmail, validatePw};  
