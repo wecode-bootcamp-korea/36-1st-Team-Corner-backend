@@ -32,7 +32,7 @@ const signIn = async (email, password) => {
   const result = await bcrypt.compare(password, user.password);
 
   if (!result) {
-    const err = new Error("INVAILD_PASSWORD");
+    const err = new Error("INVAILD_USER");
     err.statusCode = 401;
     throw err;
   }

@@ -3,7 +3,7 @@ const validateEmail = (email) => {
         /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
     );
     if(!emValidation.test(email)){
-        const err = new Error("INVAILD_USER")
+        const err = new Error("INVAILD_EMAIL")
         err.statusCode = 400;
         throw err;
         }}
@@ -14,7 +14,7 @@ const validatePw = (password) => {
     );
     
     if (!pwValidation.test(password)) {
-        const err = new Error("INVAILD_USER");
+        const err = new Error("INVAILD_PASSWORD");
         err.statusCode = 400;
         throw err;}};
       
