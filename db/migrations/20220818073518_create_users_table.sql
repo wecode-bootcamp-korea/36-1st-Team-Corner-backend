@@ -4,8 +4,8 @@ CREATE TABLE `users` (
   `name` varchar(30),
   `email` varchar(300)  NOT NULL,
   `password` varchar(200)  NOT NULL,
-  `created_at` timestamp  NOT NULL,
-  `updated_at` timestamp
+  `created_at` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 CREATE TABLE `user_address` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
