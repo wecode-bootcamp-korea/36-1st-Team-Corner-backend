@@ -59,7 +59,7 @@ const deleteReview = async (req, res) => {
 const getReviewList = async (req, res) => {
   try {
     const { productId } = req.params;
-console.log(productId)
+
     const reviewList = await reviewService.getReviewList(productId);
     return res.status(200).json(reviewList);
   } catch (err) {
