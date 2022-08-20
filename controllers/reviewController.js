@@ -1,4 +1,3 @@
-const { post } = require("hostman/src/web/routes");
 const reviewService = require("../services/reviewService");
 
 const postReview = async (req, res) => {

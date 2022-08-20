@@ -1,5 +1,3 @@
-const app = require("hostman/src/web/app");
-const { use } = require("hostman/src/web/routes");
 const { appDataSource } = require("./dataSource");
 
 const createReview = async (contents, productId, userId) => {
