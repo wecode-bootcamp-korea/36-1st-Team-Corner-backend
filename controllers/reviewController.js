@@ -60,7 +60,7 @@ const getReviewList = async (req, res) => {
     const { productId } = req.params;
 
     const reviewList = await reviewService.getReviewList(productId);
-    return res.status(200).json(reviewList);
+    return res.status(200).json({ data : reviewList});
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
