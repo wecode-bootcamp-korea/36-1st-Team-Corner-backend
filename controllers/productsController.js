@@ -5,12 +5,19 @@ const categoryList = async (req, res) => {
     const pageInfo = req.query;
     
     const cate = parseInt(pageInfo.cate);
-    
-    if (!cate) {
+    const page = parseInt(pageInfo.page);
+
+    if (!page) {
         return res.status(400).json({ message: 'NULL_VALUE' });
     }
-    try {const list = await productsService.categoryList(cate)
-        res.status(200).json({data: list})
+    try {
+        if(!cate){
+            const list = await productsService.allList(page)
+            res.status(200).json({data: list})
+        }
+
+            else{const list = await productsService.categoryList(cate, page)
+        res.status(200).json({data: list})}
 
     }
     catch (err) {console.log(err);

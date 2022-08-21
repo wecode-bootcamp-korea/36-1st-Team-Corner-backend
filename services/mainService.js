@@ -1,16 +1,8 @@
 const mainDao = require("../models/mainDao")
 
-const searchList = async (page, pageSize) => {
-
-    try {let start = 0;
-    
-        if (page <= 0) {
-          page = 1;
-        } else {
-          start = (page - 1) * pageSize;
-        }
-  
-    const getProducts = await mainDao.getProducts(start, pageSize);
+const searchList = async () => {
+  try{
+    const getProducts = await mainDao.getProducts();
 
     return getProducts}
     catch (err) {

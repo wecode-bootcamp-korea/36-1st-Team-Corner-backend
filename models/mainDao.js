@@ -1,6 +1,6 @@
 const {appDataSource} = require("./dataSource")
 
-const getProducts = async(start, pageSize) =>{
+const getProducts = async() =>{
     try{ 
         return await appDataSource.query(
         `SELECT 
@@ -11,7 +11,8 @@ const getProducts = async(start, pageSize) =>{
             thumbnail_image_url,
             stock,
             category_id
-        FROM products LIMIT ${start},${pageSize}
+        FROM products order by price asc
+        LIMIT 0,9
             `
             ,)}
     catch(err) {

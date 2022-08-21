@@ -1,10 +1,39 @@
 const productsDao = require("../models/productsDao")
 
-const categoryList = async (cate) => {
-    
+const allList = async (page) => {
+
+  try{
+      let start = 0;
+      let pageSize = 9;
+      if (page <= 0) {
+        page = 1;
+      } else {
+        start = (page - 1) * pageSize;
+      }
+      
+    const getAllList = await productsDao.getAllList(start);
+    return getAllList}
+  
+  catch (err) {
+      res
+        .status(err.statusCode ? err.statusCode : 401)
+        .json({ message: err.message });
+    }}
+
+
+const categoryList = async (cate, page) => {
+
     try{
-    const getCategoryList = await productsDao.getCategoryList(cate);
-    return getCategoryList}
+        let start = 0;
+        let pageSize = 9;
+        if (page <= 0) {
+          page = 1;
+        } else {
+          start = (page - 1) * pageSize;
+        }
+        
+      const getCategoryList = await productsDao.getCategoryList(cate, start);
+      return getCategoryList}
     
     catch (err) {
         res
@@ -25,4 +54,4 @@ const productsSearch = async (word) => {
       }}
 
     
-module.exports = {categoryList, productsSearch}
+module.exports = {categoryList, productsSearch, allList}
