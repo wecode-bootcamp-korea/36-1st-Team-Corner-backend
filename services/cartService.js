@@ -8,8 +8,6 @@ const postCart = async (quantity, productId, userId) => {
   const existProduct = await cartDao.existProduct(productId);
   const checkCart = await cartDao.existCart(productId, userId);
 
-  console.log(existProduct, checkCart)
-
   if (!existProduct) {
     const err = new Error("PRODUCT_DOES_NOT_EXIST");
     err.statusCode = 404;

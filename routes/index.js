@@ -5,6 +5,6 @@ const {authRouter} = require("./authRouter");
 const cartRouter = require("./cartRouter");
 
 router.use("/auth", authRouter);
-router.use("/user", cartRouter.router);
+router.use("/cart", cartRouter.router);
 
 module.exports = router;
