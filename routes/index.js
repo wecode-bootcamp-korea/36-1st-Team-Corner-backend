@@ -13,7 +13,7 @@ router.use("/",mainRouter);
 router.use("/products",productsRouter);
 router.use("/product",oneProductRouter)
 router.use("/auth", authRouter);
-router.use("/product", reviewRouter.router);
+router.use("/review", reviewRouter.router);
 
 
 module.exports = router;
