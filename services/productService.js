@@ -1,4 +1,4 @@
-const productsDao = require("../models/productsDao")
+const productDao = require("../models/productDao")
 
 const allList = async (page) => {
 
@@ -11,7 +11,7 @@ const allList = async (page) => {
         start = (page - 1) * pageSize;
       }
       
-    const getAllList = await productsDao.getAllList(start);
+    const getAllList = await productDao.getAllList(start);
     return getAllList}
   
   catch (err) {
@@ -32,7 +32,7 @@ const categoryList = async (cate, page) => {
           start = (page - 1) * pageSize;
         }
         
-      const getCategoryList = await productsDao.getCategoryList(cate, start);
+      const getCategoryList = await productDao.getCategoryList(cate, start);
       return getCategoryList}
     
     catch (err) {
@@ -41,11 +41,11 @@ const categoryList = async (cate, page) => {
           .json({ message: err.message });
       }}
 
-const productsSearch = async (word) => {
+const productSearch = async (word) => {
 
     try{
-    const getProductsList = await productsDao.getProductsList(word);
-    return getProductsList
+    const getProductList = await productDao.getProductList(word);
+    return getProductList
     }
     catch (err) {
         res
@@ -53,5 +53,18 @@ const productsSearch = async (word) => {
           .json({ message: err.message });
       }}
 
+const productInformation = async (id) => {
     
-module.exports = {categoryList, productsSearch, allList}
+    try{
+      const getProduct = await productDao.getProduct(id);
+      return getProduct}
+        
+    catch (err) {
+            res
+              .status(err.statusCode ? err.statusCode : 401)
+              .json({ message: err.message });
+          }}
+    
+
+    
+module.exports = {categoryList, productSearch, allList, productInformation}

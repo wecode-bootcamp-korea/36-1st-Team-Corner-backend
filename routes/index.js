@@ -3,15 +3,11 @@ const router = express.Router();
 
 const {authRouter} = require("./authRouter");
 const {mainRouter} = require("./mainRouter")
-const {productsRouter} = require("./productsRouter")
-const {oneProductRouter} = require("./oneProductRouter")
+const {productRouter} = require("./productRouter")
 const reviewRouter = require("./reviewRouter");
 
-
-router.use("/auth", authRouter);
 router.use("/",mainRouter);
-router.use("/products",productsRouter);
-router.use("/product",oneProductRouter)
+router.use("/product",productRouter);
 router.use("/auth", authRouter);
 router.use("/review", reviewRouter.router);
 

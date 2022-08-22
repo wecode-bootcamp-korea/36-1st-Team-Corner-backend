@@ -42,7 +42,7 @@ const getCategoryList = async(cate, start) =>{
         throw error;}
 }
 
-const getProductsList = async(word) =>{
+const getProductList = async(word) =>{
     try{ 
         return await appDataSource.query(
         `SELECT 
@@ -63,4 +63,25 @@ const getProductsList = async(word) =>{
         throw error;}
 }
 
-module.exports = {getCategoryList, getProductsList, getAllList}
+const getProduct = async(id) =>{
+    try{ 
+        return await appDataSource.query(
+        `SELECT 
+            id,
+            name,
+            price,
+            detail,
+            thumbnail_image_url,
+            stock,
+            category_id
+        FROM products p
+        WHERE p.id = ${id}
+            `
+            ,)}
+    catch(err) {
+        const error = new Error('INVALID_DATA_INPUT');
+        error.statusCode = 500;
+        throw error;}
+}
+
+module.exports = {getCategoryList, getProductList, getAllList, getProduct}
