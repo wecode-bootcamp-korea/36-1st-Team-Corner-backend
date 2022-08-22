@@ -21,6 +21,15 @@ const validatePw = (password) => {
   }
 };
 
+const validateproductId = (productId) => {
+  const pdIdValidation = new RegExp(/^\d+$/);
+  if (!pdIdValidation.test(productId)) {
+    const err = new Error("INVALID_PRODUCT_ID");
+    err.statusCode = 400;
+    throw err;
+  }
+};
+
 const validateQuantity = (quantity) => {
   const quantityValidation = new RegExp(/^\d+$/);
   
@@ -31,4 +40,4 @@ const validateQuantity = (quantity) => {
   }
 };
 
-module.exports = { validateEmail, validatePw, validateQuantity };
+module.exports = { validateEmail, validatePw, validateQuantity, validateproductId };

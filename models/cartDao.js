@@ -55,16 +55,15 @@ const updateCart = async (quantity, productId, userId) => {
   }
 };
 
-const deleteAllCart = async (productId, userId) => {
+const deleteAllCart = async (userId) => {
   try {
     return await appDataSource.query(
       `DELETE FROM
         carts
-       WHERE product_id = ${productId}
-       AND user_id = ${userId}`
+       WHERE user_id = ${userId}`
     );
   } catch (err) {
-    const error = new Error("PRODUCT_DOES_NOT_EXIST");
+    const error = new Error("USER_DOES_NOT_EXIST");
     error.statusCode = 400;
     throw error;
   }

@@ -1,8 +1,9 @@
 const cartDao = require("../models/cartDao");
+const authDao = require("../models/authDao");
 const { validateQuantity, validateproductId } = require("../utils/validation");
 
 const postCart = async (quantity, productId, userId) => {
-  //validateproductId(productId);
+  validateproductId(productId);
   validateQuantity(quantity);
 
   const existProduct = await cartDao.existProduct(productId);
@@ -31,36 +32,18 @@ const postCart = async (quantity, productId, userId) => {
   }
 };
 
-const cartPostOnebyone = async (quantity, productId, userId) => {
-  //validateproductId(productId);
+const deleteAllCart = async (userId) => {
+  const user = await authDao.getUserByuserId(userId);
 
-  const existProduct = await cartDao.existProduct(productId);
-
-  if (!existProduct) {
-    const err = new Error("PRODUCT_DOES_NOT_EXIST");
+  if (!user) {
+    const err = new Error("USER_DOES_NOT_EXIST");
     err.statusCode = 404;
     throw err;
   }
 
-  const cartOnebyone = await cartDao.cartOnebyone(quantity, productId, userId);
-
-  return cartOnebyone;
-}
-
-const deleteAllCart = async (productId, userId) => {
-  //validateproductId(productId);
-
-  const existProduct = await cartDao.existProduct(productId);
-
-  if (!existProduct) {
-    const err = new Error("PRODUCT_DOES_NOT_EXIST");
-    err.statusCode = 404;
-    throw err;
-  }
-
-  const deleteAllCart = await cartDao.deleteAllCart(productId, userId);
+  const deleteAllCart = await cartDao.deleteAllCart(userId);
 
   return deleteAllCart;
 };
 
-module.exports = { postCart, deleteAllCart, cartPostOnebyone };
+module.exports = { postCart, deleteAllCart };
