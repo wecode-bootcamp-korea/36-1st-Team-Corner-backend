@@ -2,11 +2,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const userDao = require("../models/authDao");
-const { validateEmailPw } = require("../utils/validation");
+const { validateEmail, validatePw } = require("../utils/validation");
 
 const signUp = async (email, password, name) => {
     
-    validateEmailPw(email, password);
+    validateEmail(email)
+    validatePw(password)
 
   const user = await userDao.getUserByEmail(email);
 
@@ -31,12 +32,12 @@ const signIn = async (email, password) => {
   const result = await bcrypt.compare(password, user.password);
 
   if (!result) {
-    const err = new Error("INVAILD_PASSWORD");
+    const err = new Error("INVAILD_USER");
     err.statusCode = 401;
     throw err;
   }
 
-  return jwt.sign({ sub: user.id, email: user.email }, process.env.JWT_SECRET);
+  return jwt.sign({ sub: user.id, exp: Math.floor(Date.now()/1000) + (600*60) }, process.env.JWT_SECRET);
 };
 
 module.exports = { signUp, signIn };
