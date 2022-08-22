@@ -55,9 +55,15 @@ const deleteReview = async (productId, userId) => {
 const getReviewList = async (productId) => {
   try {
     return await appDataSource.query(
-        `SELECT *
-         FROM reviews
-         WHERE product_id = ${productId}`, 
+        `SELECT 
+            r.id, 
+            r.contents, 
+            r.created_at, 
+            u.name 
+         FROM reviews r 
+         LEFT JOIN users u 
+         on r.user_id = u.id 
+         WHERE r.product_id = ${productId}`,
     );
   } catch (err) {
     const error = new Error("THIS_PRODUCT_DOESN'T_EXIST");
