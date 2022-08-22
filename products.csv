@@ -1,0 +1,32 @@
+id,name,price,detail,thumbnail_images,stock,category_id
+1,여행용 미니 샤워기,23900,https://velog.velcdn.com/images/nextlinehappy516/post/b7430cf6-1660-4acd-968f-7ac37f929e66/image.jpg,100,1
+2,바디라이크 필터 샤워기,26000,https://velog.velcdn.com/images/nextlinehappy516/post/460ee18b-cdaf-4a5f-8aeb-7ffc64174c3f/image.jpg,100,1
+3,바디라이크X팀코너 콜라보 샤워기,50000,https://velog.velcdn.com/images/nextlinehappy516/post/84fb36b4-34eb-4d56-80e9-61143df58539/image.webp,100,1
+4,퓨어클린 네이쳐 샤워기,26000,https://velog.velcdn.com/images/nextlinehappy516/post/285884ba-b697-4f6b-88a8-2f8f07428c23/image.jpg,100,1
+5,퓨어클린 네이쳐 샤워기 플러스,38000,https://velog.velcdn.com/images/nextlinehappy516/post/b9294f7a-5f50-4108-88af-7e6a595b554c/image.jpg,100,1
+6,퓨어클린 네이쳐 샤워기 컴플리트,48000,https://velog.velcdn.com/images/nextlinehappy516/post/e64976f3-2e88-483b-a11b-77a6f10a4bd3/image.webp,100,1
+7,퓨어클린 리미티드 에디션 샤워기,65000,https://velog.velcdn.com/images/nextlinehappy516/post/6e12d7ba-aa29-465b-be20-afb2242a96c1/image.jpg,100,1
+8,바디라이크 실리콘 샤워호스,27900,https://velog.velcdn.com/images/nextlinehappy516/post/537b8602-fe18-4516-8fd3-3d0cddafa46a/image.jpg,100,2
+9,튜브 샤워호스,14900,https://velog.velcdn.com/images/nextlinehappy516/post/f2f65d19-a7b6-4a98-9919-be2b196b9417/image.jpg,100,2
+10,바디라이크X팀코너 콜라보 샤워호스,15000,https://velog.velcdn.com/images/nextlinehappy516/post/86ee558a-7dc1-4a3e-863f-87de9e787cea/image.jpg,100,2
+11,퓨어클린 메탈 샤워호스,18000,https://velog.velcdn.com/images/nextlinehappy516/post/37c5a0e4-fccc-4d6d-b572-cf3bd419bff5/image.jpg,100,2
+12,퓨어클린 메탈 시그니쳐 샤워호스,20000,https://velog.velcdn.com/images/nextlinehappy516/post/e9ad8b19-a220-489d-8eaf-4e5d16dfb5ed/image.jpg,100,2
+13,퓨어클린 큐어 샤워호스,16000,https://velog.velcdn.com/images/nextlinehappy516/post/797d0162-f4b7-46c2-879c-80c15398994b/image.jpg,100,2
+14,퓨어클린 큐어 시그니쳐 샤워호스,19000,https://velog.velcdn.com/images/nextlinehappy516/post/38287dd7-cb4b-4d73-8fa8-a650a6ff5109/image.jpg,100,2
+15,바디라이크 비타민 배스밤,9900,https://velog.velcdn.com/images/nextlinehappy516/post/953c76dc-2306-47fd-9f68-96b28b44e169/image.jpg,100,3
+16,바디라이크 퓨어 배스밤,11900,https://velog.velcdn.com/images/nextlinehappy516/post/de08d5fc-2b60-441f-88b3-3f6e8cc003d0/image.jpg,100,3
+17,비타민 가득 대용량 배스밤,29900,https://velog.velcdn.com/images/nextlinehappy516/post/be79746d-dd4a-4e44-abb5-e14f27619dad/image.jpg,100,3
+18,바디라이크 시그니처 배스밤,13900,https://velog.velcdn.com/images/nextlinehappy516/post/0e7b5305-9467-466b-942e-6de112a8e68c/image.jpg,100,3
+19,퓨어클린 배스밤,8900,https://velog.velcdn.com/images/nextlinehappy516/post/970e5096-8d6e-4c7d-a4c9-21e97f37b123/image.jpg,100,3
+20,퓨어클린 쿨 배스밤,15000,https://velog.velcdn.com/images/nextlinehappy516/post/d6b5c57e-bd96-49c4-b5df-cd6cd53554c9/image.jpg,100,3
+21,퓨어클린 대용량 배스밤,23000,https://velog.velcdn.com/images/nextlinehappy516/post/5fb8097a-f05f-4caa-a8a1-77aec3906717/image.jpg,100,3
+22,퓨어클린 네이쳐 배스밤,18000,https://velog.velcdn.com/images/nextlinehappy516/post/55d45a6f-614c-43db-96de-f46056bfb53d/image.jpg,100,3
+23,바디라이크 비타민 가득 비누,9900,https://velog.velcdn.com/images/nextlinehappy516/post/1235a4e8-db15-42a2-a870-fc6e9e6cd2ea/image.jpg,100,4
+24,바디라이크 비어솝,10000,https://velog.velcdn.com/images/nextlinehappy516/post/5c5908b6-0386-4145-9c32-a24228ef748f/image.jpg,100,4
+25,바디라이크X팀코너 콜라보 비누,14000,https://velog.velcdn.com/images/nextlinehappy516/post/e877d6df-58f5-46e2-b352-4c0823ed1d04/image.jpg,100,4
+26,뽀송뽀송 영유아 전용 비누,20000,https://velog.velcdn.com/images/nextlinehappy516/post/62e84416-ec51-43a0-964e-acf1e9dc8b0e/image.jpg,100,4
+27,바디라이크 주방용 비누,9900,https://velog.velcdn.com/images/nextlinehappy516/post/934f9f57-2321-40b9-98c9-2a6a70b701e5/image.jpg,100,4
+28,퓨어클린 소프트 비누,8900,https://velog.velcdn.com/images/nextlinehappy516/post/19045829-2dc8-4918-abf1-9580f25b59d4/image.jpg,100,4
+29,퓨어클린 소프트 모이스쳐 비누,9900,https://velog.velcdn.com/images/nextlinehappy516/post/993cdc8b-3df6-4b80-a5d4-864b69c3997e/image.jpg,100,4
+30,퓨어클린 소프트 시그니쳐 비누,12000,https://velog.velcdn.com/images/nextlinehappy516/post/0b618e1d-f2d8-4efb-ac4f-818a687615b5/image.jpg,100,4
+31,퓨어클린 소프트 리미티드 에디션 비누,15000,https://velog.velcdn.com/images/nextlinehappy516/post/48facb0a-5986-4a8b-bf12-262a3f69d6fe/image.jpg,100,4
