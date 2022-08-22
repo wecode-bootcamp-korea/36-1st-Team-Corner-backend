@@ -25,8 +25,7 @@ const deleteAllCart = async (req, res) => {
     
     const userId = req.userId;
 
-    const a =await cartService.deleteAllCart(userId);
-    console.log(a)
+    await cartService.deleteAllCart(userId);
     return res.status(204).json({
       message: "CART_DELETE_SUCCESS",
     });

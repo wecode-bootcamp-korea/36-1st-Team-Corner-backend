@@ -2,7 +2,7 @@ const cartDao = require("../models/cartDao");
 const { validateQuantity, validateproductId } = require("../utils/validation");
 
 const postCart = async (quantity, productId, userId) => {
-  //validateproductId(productId);
+  validateproductId(productId);
   validateQuantity(quantity);
 
   const existProduct = await cartDao.existProduct(productId);
