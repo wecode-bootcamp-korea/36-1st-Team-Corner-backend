@@ -65,20 +65,6 @@ const updateCart = async (quantity, productId, userId) => {
   }
 };
 
-const deleteAllCart = async (userId) => {
-  try {
-    return await appDataSource.query(
-      `DELETE FROM
-        carts
-       WHERE user_id = ${userId}`
-    );
-  } catch (err) {
-    const error = new Error("USER_DOES_NOT_EXIST");
-    error.statusCode = 400;
-    throw error;
-  }
-};
-
 const countUserCart = async (userId) => {
   const [cartCounting] = await appDataSource.query(
     `SELECT 
@@ -95,7 +81,6 @@ module.exports = {
   postCart,
   existCart,
   updateCart,
-  deleteAllCart,
   checkStock,
   countUserCart,
 };
