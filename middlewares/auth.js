@@ -9,7 +9,7 @@ const validateToken = async (req, res, next) => {
     const accessToken = headers.split(" ")[1];
     const decode = jwt.verify(accessToken, process.env.JWT_SECRET);
     const userId = decode.sub;
-    const user = await authDao.getUserByuserId(userId);
+    const user = await authDao.getUserById(userId);
 
     if (!user) {
       res.status(404).json({ message: "USER_NOT_FOUND" });

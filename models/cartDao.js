@@ -1,14 +1,24 @@
-const app = require("hostman/src/web/app");
 const { appDataSource } = require("./dataSource");
 
 const existProduct = async (productId) => {
   const [product] = await appDataSource.query(
     `SELECT *
      FROM products
-     WHERE id = ${productId}`
+     WHERE id = ${productId}`,
   );
 
   return product;
+};
+
+const checkStock = async (productId) => {
+  const [stock] = await appDataSource.query(
+    `SELECT
+      stock
+     FROM products
+     WHERE id = ${productId}`,
+  );
+
+  return parseInt(Object.values(stock));
 };
 
 const existCart = async (productId, userId) => {
@@ -74,4 +84,5 @@ module.exports = {
   existCart,
   updateCart,
   deleteAllCart,
+  checkStock
 };
