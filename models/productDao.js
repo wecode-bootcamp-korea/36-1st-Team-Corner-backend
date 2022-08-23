@@ -1,27 +1,23 @@
 const {appDataSource} = require("./dataSource")
 
+const checkAllProduct = async() =>{
+    try{
+        const [AllProduct] = await appDataSource.query(
+            `SELECT COUNT(*) 
+            FROM products
+            `)
+        return Object.values(AllProduct)[0]
+        
+    }
+    catch(err){ const error = new Error('INVALID_DATA_INPUT');
+    error.statusCode = 500;
+    throw error;}
+}
 
-const getAllList = async(start) =>{
-    try{ let pageSize =9;
-        return await appDataSource.query(
-        `SELECT 
-            id,
-            name,
-            price,
-            detail,
-            thumbnail_image_url,
-            stock,
-            category_id
-        FROM products LIMIT ${start},${pageSize}
-            `
-            ,)}
-    catch(err) {
-        const error = new Error('INVALID_DATA_INPUT');
-        error.statusCode = 500;
-        throw error;}}
-
-const getCategoryList = async(cate, start) =>{
-    try{ let pageSize = 9;
+const getList = async(cate, start, pageSize) =>{
+    try{ 
+        if(!cate){cate = null}
+        
         return await appDataSource.query(
         `SELECT 
             id,
@@ -32,9 +28,37 @@ const getCategoryList = async(cate, start) =>{
             stock,
             category_id
         FROM products p 
-        WHERE p.category_id = ${cate}
+        WHERE 
+            CASE WHEN ${cate} IS NULL THEN p.category_id IS NOT NULL 
+            WHEN ${cate} IS NOT NULL THEN p.category_id = ${cate} END
         LIMIT ${start},${pageSize}
             `
+            ,)}
+    catch(err) {
+        const error = new Error('INVALID_DATA_INPUT');
+        error.statusCode = 500;
+        throw error;}
+}
+
+const getOrderByList = async(orderBy, cate, start, pageSize) =>{
+    try{ 
+        if(!cate){cate = null}
+        return await appDataSource.query(
+        `SELECT 
+            id,
+            name,
+            price,
+            detail,
+            thumbnail_image_url,
+            stock,
+            category_id
+        FROM products p 
+        WHERE 
+            CASE WHEN ${cate} IS NULL THEN p.category_id IS NOT NULL 
+        WHEN ${cate} IS NOT NULL THEN p.category_id = ${cate} END
+        ORDER BY ${orderBy}
+        LIMIT ${start},${pageSize}
+        `
             ,)}
     catch(err) {
         const error = new Error('INVALID_DATA_INPUT');
@@ -84,4 +108,4 @@ const getProduct = async(id) =>{
         throw error;}
 }
 
-module.exports = {getCategoryList, getProductList, getAllList, getProduct}
+module.exports = {checkAllProduct, getProductList, getOrderByList, getList, getProduct}

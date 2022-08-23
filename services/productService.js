@@ -1,70 +1,41 @@
 const productDao = require("../models/productDao")
 
-const allList = async (page) => {
-
-  try{
-      let start = 0;
-      let pageSize = 9;
-      if (page <= 0) {
+const productList = async (pageInfo) => {
+    
+    const orderBy = pageInfo["orderBy"]
+    const cate = parseInt(pageInfo.cate)
+    const page = parseInt(pageInfo.page)
+    let pageSize = parseInt(pageInfo.pageSize)
+    
+    const checkAllProduct = await productDao.checkAllProduct();
+    
+    if(checkAllProduct < pageSize){
+      pageSize = 9;
+    }
+    let start = 0;
+    
+        if (page <= 0) {
         page = 1;
-      } else {
+        } else {
         start = (page - 1) * pageSize;
       }
-      
-    const getAllList = await productDao.getAllList(start);
-    return getAllList}
-  
-  catch (err) {
-      res
-        .status(err.statusCode ? err.statusCode : 401)
-        .json({ message: err.message });
+
+    if(!orderBy){
+      const getList = await productDao.getList(cate, start, pageSize);
+    return getList}
+    else{
+      const getOrderByList = await productDao.getOrderByList(orderBy, cate, start, pageSize)
+      return getOrderByList
     }}
-
-
-const categoryList = async (cate, page) => {
-
-    try{
-        let start = 0;
-        let pageSize = 9;
-        if (page <= 0) {
-          page = 1;
-        } else {
-          start = (page - 1) * pageSize;
-        }
-        
-      const getCategoryList = await productDao.getCategoryList(cate, start);
-      return getCategoryList}
-    
-    catch (err) {
-        res
-          .status(err.statusCode ? err.statusCode : 401)
-          .json({ message: err.message });
-      }}
 
 const productSearch = async (word) => {
 
-    try{
     const getProductList = await productDao.getProductList(word);
-    return getProductList
-    }
-    catch (err) {
-        res
-          .status(err.statusCode ? err.statusCode : 401)
-          .json({ message: err.message });
-      }}
-
+    return getProductList}
+    
 const productInformation = async (id) => {
     
-    try{
-      const getProduct = await productDao.getProduct(id);
-      return getProduct}
+    const getProduct = await productDao.getProduct(id);
+    return getProduct}
         
-    catch (err) {
-            res
-              .status(err.statusCode ? err.statusCode : 401)
-              .json({ message: err.message });
-          }}
-    
-
-    
-module.exports = {categoryList, productSearch, allList, productInformation}
+module.exports = {productList, productSearch, productInformation}
