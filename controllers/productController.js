@@ -3,8 +3,17 @@ const productService = require('../services/productService');
 const productList = async (req, res) => {
     
     const pageInfo = req.query;
+    
+    const page = parseInt(pageInfo.page)
+    const pageSize = parseInt(pageInfo.pageSize)
+    const cate = parseInt(pageInfo.cate)
+    const orderBy = pageInfo["orderBy"]
 
-     try{const list = await productService.productList(pageInfo)
+    try{
+        if(!page || !pageSize){
+        return res.status(400).json({ message: 'UNKNOWN_VALUE' })
+    }
+        const list = await productService.productList(page, pageSize, cate, orderBy)
         res.status(200).json({data: list})}
 
     catch (err) {console.log(err);

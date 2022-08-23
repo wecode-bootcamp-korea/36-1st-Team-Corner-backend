@@ -15,7 +15,6 @@ const signUp = async (req, res) => {
       .status(err.statusCode ? err.statusCode : 400)
       .json({ message: err.message });
   }
-  
 };
 
 const signIn = async (req, res) => {

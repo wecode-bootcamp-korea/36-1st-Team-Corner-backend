@@ -1,11 +1,6 @@
 const productDao = require("../models/productDao")
 
-const productList = async (pageInfo) => {
-    
-    const orderBy = pageInfo["orderBy"]
-    const cate = parseInt(pageInfo.cate)
-    const page = parseInt(pageInfo.page)
-    let pageSize = parseInt(pageInfo.pageSize)
+const productList = async (page, pageSize, cate, orderBy) => {
     
     const checkAllProduct = await productDao.checkAllProduct();
     
@@ -19,14 +14,9 @@ const productList = async (pageInfo) => {
         } else {
         start = (page - 1) * pageSize;
       }
-
-    if(!orderBy){
-      const getList = await productDao.getList(cate, start, pageSize);
-    return getList}
-    else{
-      const getOrderByList = await productDao.getOrderByList(orderBy, cate, start, pageSize)
+    const getOrderByList = await productDao.getOrderByList(start, pageSize, cate, orderBy)
       return getOrderByList
-    }}
+    }
 
 const productSearch = async (word) => {
 

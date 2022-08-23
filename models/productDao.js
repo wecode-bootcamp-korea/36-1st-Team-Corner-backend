@@ -14,35 +14,10 @@ const checkAllProduct = async() =>{
     throw error;}
 }
 
-const getList = async(cate, start, pageSize) =>{
+const getOrderByList = async(start, pageSize, cate, orderBy) =>{
     try{ 
         if(!cate){cate = null}
-        
-        return await appDataSource.query(
-        `SELECT 
-            id,
-            name,
-            price,
-            detail,
-            thumbnail_image_url,
-            stock,
-            category_id
-        FROM products p 
-        WHERE 
-            CASE WHEN ${cate} IS NULL THEN p.category_id IS NOT NULL 
-            WHEN ${cate} IS NOT NULL THEN p.category_id = ${cate} END
-        LIMIT ${start},${pageSize}
-            `
-            ,)}
-    catch(err) {
-        const error = new Error('INVALID_DATA_INPUT');
-        error.statusCode = 500;
-        throw error;}
-}
-
-const getOrderByList = async(orderBy, cate, start, pageSize) =>{
-    try{ 
-        if(!cate){cate = null}
+        if(!orderBy){orderBy = null}
         return await appDataSource.query(
         `SELECT 
             id,
@@ -56,7 +31,9 @@ const getOrderByList = async(orderBy, cate, start, pageSize) =>{
         WHERE 
             CASE WHEN ${cate} IS NULL THEN p.category_id IS NOT NULL 
         WHEN ${cate} IS NOT NULL THEN p.category_id = ${cate} END
-        ORDER BY ${orderBy}
+        ORDER BY 
+            CASE WHEN ${orderBy} IS NULL THEN p.id 
+            WHEN ${orderBy} IS NOT NULL THEN PRICE END
         LIMIT ${start},${pageSize}
         `
             ,)}
@@ -108,4 +85,4 @@ const getProduct = async(id) =>{
         throw error;}
 }
 
-module.exports = {checkAllProduct, getProductList, getOrderByList, getList, getProduct}
+module.exports = {checkAllProduct, getProductList, getOrderByList, getProduct}
