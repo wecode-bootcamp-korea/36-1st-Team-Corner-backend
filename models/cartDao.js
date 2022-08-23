@@ -4,7 +4,7 @@ const existProduct = async (productId) => {
   const [product] = await appDataSource.query(
     `SELECT *
      FROM products
-     WHERE id = ${productId}`,
+     WHERE id = ${productId}`
   );
 
   return product;
@@ -15,7 +15,7 @@ const checkStock = async (productId) => {
     `SELECT
       stock
      FROM products
-     WHERE id = ${productId}`,
+     WHERE id = ${productId}`
   );
 
   return parseInt(Object.values(stock));
@@ -78,11 +78,24 @@ const deleteAllCart = async (userId) => {
     throw error;
   }
 };
+
+const countUserCart = async (userId) => {
+  const [cartCounting] = await appDataSource.query(
+    `SELECT 
+        COUNT(*) 
+       FROM carts
+       WHERE user_id = ${userId}`
+  );
+
+  return parseInt(Object.values(cartCounting));
+};
+
 module.exports = {
   existProduct,
   postCart,
   existCart,
   updateCart,
   deleteAllCart,
-  checkStock
+  checkStock,
+  countUserCart,
 };

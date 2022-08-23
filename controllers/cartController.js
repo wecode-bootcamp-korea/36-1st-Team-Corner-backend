@@ -1,7 +1,6 @@
 const cartService = require("../services/cartService");
 
 const postCart = async (req, res) => {
-  console.log(req.body)
   try {
     const { quantity } = req.body;
     const { productId } = req.params;
@@ -21,4 +20,18 @@ const postCart = async (req, res) => {
   }
 };
 
-module.exports = { postCart };
+const countUserCart = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const cartCounting = await cartService.countUserCart(userId);
+    return res.status(200).json({
+      data: cartCounting,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
+
+module.exports = { postCart, countUserCart };

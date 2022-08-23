@@ -3,7 +3,6 @@ const authDao = require("../models/authDao");
 const { validateQuantity, validateproductId } = require("../utils/validation");
 
 const postCart = async (quantity, productId, userId) => {
-  console.log(quantity, productId, userId)
   validateproductId(productId);
   validateQuantity(quantity);
 
@@ -41,4 +40,10 @@ const postCart = async (quantity, productId, userId) => {
   }
 };
 
-module.exports = { postCart };
+const countUserCart = async (userId) => {
+  const cartCounting = await cartDao.countUserCart(userId);
+
+  return cartCounting;
+};
+
+module.exports = { postCart, countUserCart };
