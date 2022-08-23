@@ -1,9 +1,7 @@
-//middlewares/auth.js
-
 const authDao = require("../models/authDao");
 const jwt = require("jsonwebtoken");
 
-const validateToken = async (req, res, next) => {
+const validationToken = async (req, res, next) => {
   try {
     const headers = req.headers["authorization"];
     const accessToken = headers.split(" ")[1];
@@ -23,5 +21,5 @@ const validateToken = async (req, res, next) => {
 };
 
 module.exports = {
-  validateToken,
+  validationToken,
 };
