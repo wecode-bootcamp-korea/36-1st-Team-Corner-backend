@@ -6,7 +6,6 @@ const postReview = async (req, res) => {
     const { productId } = req.params;
     const userId = req.userId;
 
-    console.log(contents, productId, userId)
     if (!contents) {
       return res.status(400).json({ message: "KEY_ERROR" });
     }
@@ -45,8 +44,6 @@ const deleteReview = async (req, res) => {
   try {
     const { reviewId ,productId } = req.params;
     const userId = req.userId;
-
-    console.log(reviewId)
 
     await reviewService.deleteReview(reviewId, productId, userId);
     return res.status(200).json({

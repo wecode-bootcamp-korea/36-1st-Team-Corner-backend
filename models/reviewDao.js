@@ -39,7 +39,7 @@ const editedReview = async (reviewId, contents, productId, userId) => {
 };
 
 const deleteReview = async (reviewId, productId, userId) => {
-  console.log(reviewId, productId, userId);
+
   try {
     return await appDataSource.query(
       `DELETE
