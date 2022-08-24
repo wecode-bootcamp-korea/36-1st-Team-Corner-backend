@@ -35,6 +35,7 @@ const getUserById = async (id) => {
     `,
     [id]
   );
+
   return user;
 };
 

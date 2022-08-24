@@ -1,7 +1,6 @@
 const express = require("express");
 const reviewController = require("../controllers/reviewController");
 const auth = require("../middlewares/auth");
-const commonAuth = require("../utils/commonAuth");
 
 const router = express.Router();
 
