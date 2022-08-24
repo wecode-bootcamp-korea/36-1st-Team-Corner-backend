@@ -1,17 +1,16 @@
 const cartService = require("../services/cartService");
 
-const selectAllCart = async (req, res) => {
+const getCarts = async (req, res) => {
     try {
         const userId = req.userId;
         
-        const selectAllCart = await cartService.selectAllCart(userId);
+        const allCart = await cartService.getCarts(userId);
         return res.status(201).json({
-            "data" : selectAllCart
+            "data" : allCart
         });
     } catch (err) {
         console.log(err);
         return res.status(err.statusCode || 500).json({ message: err.message });
     }
  }
-
-module.exports = {selectAllCart}
+module.exports = {getCarts}

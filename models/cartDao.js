@@ -25,8 +25,6 @@ const getAllCart = async (userId) => {
       throw error;
     }
   };
-
 module.exports = {
-     getAllCart
-  };
+     getAllCart};
   
