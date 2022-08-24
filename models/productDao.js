@@ -15,10 +15,16 @@ const checkAllProduct = async() =>{
 }
 
 const getOrderByList = async(start, pageSize, cate, orderBy) =>{
+    
+    const queryRunner = appDataSource.createQueryRunner();
+      await queryRunner.connect();
+      await queryRunner.startTransaction()
+    
     try{ 
         if(!cate){cate = null}
         if(!orderBy){orderBy = null}
-        return await appDataSource.query(
+        
+        const list = await queryRunner.query(
         `SELECT 
             id,
             name,
@@ -36,12 +42,20 @@ const getOrderByList = async(start, pageSize, cate, orderBy) =>{
             WHEN ${orderBy} IS NOT NULL THEN PRICE END
         LIMIT ${start},${pageSize}
         `
-            ,)}
-    catch(err) {
-        const error = new Error('INVALID_DATA_INPUT');
-        error.statusCode = 500;
-        throw error;}
-}
+            ,)
+        const listCount = await queryRunner.query(
+            `SELECT count(*) 
+            as count
+            FROM products`
+          );
+        await queryRunner.commitTransaction()
+        return [list, listCount];}
+       
+        catch (err) {
+          await queryRunner.rollbackTransactrsion()
+      } finally {
+          await queryRunner.release()
+}}
 
 const getProductList = async(word) =>{
     try{ 
