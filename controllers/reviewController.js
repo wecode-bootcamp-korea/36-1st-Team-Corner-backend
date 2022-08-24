@@ -6,6 +6,7 @@ const postReview = async (req, res) => {
     const { productId } = req.params;
     const userId = req.userId;
 
+    console.log(contents, productId, userId)
     if (!contents) {
       return res.status(400).json({ message: "KEY_ERROR" });
     }
@@ -22,7 +23,7 @@ const postReview = async (req, res) => {
 
 const patchReview = async (req, res) => {
   try {
-    const { productId } = req.params;
+    const { reviewId, productId } = req.params;
     const { contents } = req.body;
     const userId = req.userId;
 
@@ -30,7 +31,7 @@ const patchReview = async (req, res) => {
       return res.status(400).json({ message: "KEY_ERROR" });
     }
 
-    await reviewService.patchReview(contents, productId, userId);
+    await reviewService.patchReview(reviewId ,contents, productId, userId);
     return res.status(204).json({
       message: "REVIEW_EDITED_SUCCESS",
     });
@@ -42,10 +43,12 @@ const patchReview = async (req, res) => {
 
 const deleteReview = async (req, res) => {
   try {
-    const { productId } = req.params;
+    const { reviewId ,productId } = req.params;
     const userId = req.userId;
 
-    await reviewService.deleteReview(productId, userId);
+    console.log(reviewId)
+
+    await reviewService.deleteReview(reviewId, productId, userId);
     return res.status(200).json({
       message: "REVIEW_DELETE_SUCCESS",
     });
@@ -57,19 +60,42 @@ const deleteReview = async (req, res) => {
 
 const getReviewList = async (req, res) => {
   try {
+    const paging = req.query;
+    const page = parseInt(paging.page);
+    const pageSize = parseInt(paging.pageSize);
+    
     const { productId } = req.params;
 
-    const reviewList = await reviewService.getReviewList(productId);
-    return res.status(200).json({ data : reviewList});
+    if (!page || !pageSize) {
+      return res.status(400).json({ message: "KEY_ERROR" });
+    }
+
+    const reviewList = await reviewService.getReviewList(page, pageSize, productId);
+
+    return res.status(200).json({ reviewList : reviewList[0], reviewCount : reviewList[1]});
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
   }
 };
 
+const getMyReviewList = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.userId;
+
+    const myReviewList = await reviewService.getMyReviewList(productId, userId);
+    return res.status(200).json({ data : myReviewList});
+  } catch (err) {
+    console.log(err);
+    return res.status(err.statusCode || 500).json({ message: err.message });
+  } 
+}
+
 module.exports = {
   postReview,
   patchReview,
   deleteReview,
   getReviewList,
+  getMyReviewList,
 };
