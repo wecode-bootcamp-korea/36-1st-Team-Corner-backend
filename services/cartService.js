@@ -15,6 +15,4 @@ const deleteCart = async (userId, productId) => {
     
     return deleteOneCart;
   };
-
-
   module.exports = {deleteAllCart, deleteCart};
