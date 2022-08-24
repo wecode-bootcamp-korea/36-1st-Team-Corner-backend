@@ -6,16 +6,13 @@ const getAllCart = async (userId) => {
         `SELECT
         c.quantity,
         c.product_id,
-        c.user_id,
         p.id,
         p.name,
         p.price,
-        p.detail,
         p.thumbnail_image_url,
-        p.stock,
         p.category_id
-      FROM products p
-      INNER JOIN carts c ON p.id = c.product_id
+      FROM carts c
+      INNER JOIN products p ON p.id = c.product_id
       WHERE c.user_id = ${userId}
         `
       );
@@ -25,6 +22,5 @@ const getAllCart = async (userId) => {
       throw error;
     }
   };
-module.exports = {
-     getAllCart};
+module.exports = {getAllCart};
   
