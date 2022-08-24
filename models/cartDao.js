@@ -21,53 +21,6 @@ const checkStock = async (productId) => {
   return parseInt(Object.values(stock));
 };
 
-const existCart = async (productId, userId) => {
-  const [existCartPd] = await appDataSource.query(
-    `SELECT count(*)
-     FROM carts
-     WHERE product_id = ${productId}
-     AND user_id = ${userId}`
-  );
-
-  return parseInt(Object.values(existCartPd)[0]);
-};
-
-const postCart = async (quantity, productId, userId) => {
-  try {
-    await appDataSource.query(
-      `INSERT INTO carts(
-            quantity, 
-            product_id, 
-            user_id
-         ) VALUES (?, ?, ?)`,
-
-      [quantity, productId, userId]
-    );
-    
-  } catch (err) {
-    const error = new Error("PRODUCT_DOES_NOT_EXIST");
-    error.statusCode = 400;
-    throw error;
-  }
-};
-
-const updateCart = async (quantity, productId, userId) => {
-  try {
-    await appDataSource.query(
-      `UPDATE carts 
-       SET quantity = quantity + ${quantity}
-       WHERE product_id = ${productId} 
-       AND user_id = ${userId}
-       `
-    )
-  
-  } catch (err) {
-    const error = new Error("PRODUCT_DOES_NOT_EXIST");
-    error.statusCode = 400;
-    throw error;
-  }
-};
-
 const deleteAllCart = async (userId) => {
   try {
     return await appDataSource.query(
@@ -143,9 +96,6 @@ const updateQuantity = async (quantity, productId, userId) => {
 module.exports = {
   checkStock,
   existProduct,
-  postCart,
-  existCart,
-  updateCart,
   deleteAllCart,
   getAllCart,
   deleteOneCart,
