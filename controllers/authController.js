@@ -3,7 +3,7 @@ const authService = require("../services/authService");
 const signUp = async (req, res) => {
   try {
     const { email, password, name} = req.body;
-
+    
     if ( !email || !password ) {
         return res.status(400).json({ message: 'KEY_ERROR' });
     }
@@ -15,7 +15,6 @@ const signUp = async (req, res) => {
       .status(err.statusCode ? err.statusCode : 400)
       .json({ message: err.message });
   }
-  
 };
 
 const signIn = async (req, res) => {
