@@ -10,6 +10,17 @@ const existProduct = async (productId) => {
   return product;
 };
 
+const checkStock = async (productId) => {
+  const [stock] = await appDataSource.query(
+    `SELECT
+      stock
+     FROM products
+     WHERE id = ${productId}`
+  );
+
+  return parseInt(Object.values(stock));
+};
+
 const existCart = async (productId, userId) => {
   const [existCartPd] = await appDataSource.query(
     `SELECT count(*)
@@ -97,11 +108,46 @@ const getAllCart = async (userId) => {
   }
 };
 
+const deleteOneCart = async (userId, productId) => {
+  try {
+    
+    return await appDataSource.query(
+      `DELETE FROM
+        carts
+       WHERE user_id = ${userId}
+       and product_id = ${productId}`
+    );
+  } catch (err) {
+    const error = new Error("PRODUCT_DOES_NOT_EXIST");
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const updateQuantity = async (quantity, productId, userId) => {
+  try {
+    await appDataSource.query(
+      `UPDATE carts 
+       SET quantity = ${quantity}
+       WHERE product_id = ${productId} 
+       AND user_id = ${userId}
+       `
+    )
+  } catch (err) {
+    const error = new Error("PRODUCT_DOES_NOT_EXIST");
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
 module.exports = {
+  checkStock,
   existProduct,
   postCart,
   existCart,
   updateCart,
   deleteAllCart,
-  getAllCart
+  getAllCart,
+  deleteOneCart,
+  updateQuantity
 };

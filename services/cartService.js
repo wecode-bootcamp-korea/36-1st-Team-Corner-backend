@@ -7,8 +7,7 @@ const postCart = async (quantity, productId, userId) => {
 
   const existProduct = await cartDao.existProduct(productId);
   const checkCart = await cartDao.existCart(productId, userId);
-
-  console.log(existProduct, checkCart)
+  const checkStock = await cartDao.checkStock(productId);
 
   if (!existProduct) {
     const err = new Error("PRODUCT_DOES_NOT_EXIST");
@@ -16,41 +15,32 @@ const postCart = async (quantity, productId, userId) => {
     throw err;
   }
 
-  if (checkCart === 0) {
-    const postCart = await cartDao.postCart(quantity, productId, userId);
-
-    return postCart;
-  } else if (checkCart > 0) {
-    const updateCart = await cartDao.updateCart(quantity, productId, userId);
-
-    return updateCart;
-  }
-
-  if (quantity === 0) {
+  if (quantity == 0) {
     const err = new Error("QUANTITY_CANNOT_BE_ZERO");
     err.statusCode = 400;
+    throw err;}
+  
+  if(quantity <= checkStock) {
+
+    if (checkCart === 0) {
+    const postCart = await cartDao.postCart(quantity, productId, userId);
+
+    return postCart;}
+
+  else if (checkCart > 0) {
+  const updateCart = await cartDao.updateCart(quantity, productId, userId);
+
+  return updateCart;
+  }}
+  else{
+    
+    const err = new Error("CANNOT_ORDER_QUANTITY_LARGER_THAN_STOCK");
+    err.statusCode = 401;
     throw err;
-  }
-};
+  }}
 
-const cartPostOnebyone = async (quantity, productId, userId) => {
-  //validateproductId(productId);
-
-  const existProduct = await cartDao.existProduct(productId);
-
-  if (!existProduct) {
-    const err = new Error("PRODUCT_DOES_NOT_EXIST");
-    err.statusCode = 404;
-    throw err;
-  }
-
-  const cartOnebyone = await cartDao.cartOnebyone(quantity, productId, userId);
-
-  return cartOnebyone;
-}
 
 const deleteAllCart = async (userId) => {
-  //validateproductId(productId);
 
   const deleteAllCart = await cartDao.deleteAllCart(userId);
   
@@ -63,5 +53,43 @@ const selectAllCart = async (userId) => {
     return getAllCart
   }
 
+const deleteCart = async (userId, productId) => {
+  validateproductId(productId);
 
-module.exports = { postCart, deleteAllCart, cartPostOnebyone, selectAllCart };
+  const deleteOneCart = await cartDao.deleteOneCart(userId, productId);
+  
+  return deleteOneCart;
+};
+
+const chooseQuantity = async (quantity, productId, userId) => {
+  
+  validateproductId(productId);
+  validateQuantity(quantity);
+  
+  const existProduct = await cartDao.existProduct(productId);
+  const checkStock = await cartDao.checkStock(productId);
+  
+  if (!existProduct) {
+    const err = new Error("PRODUCT_DOES_NOT_EXIST");
+    err.statusCode = 404;
+    throw err;
+  }
+  
+  if(quantity > checkStock){
+    const err = new Error("CANNOT_ORDER_QUANTITY_LARGER_THAN_STOCK");
+    err.statusCode = 401;
+    throw err;
+  }
+
+  if (parseInt(quantity) === 0) {
+    const deleteOneCart = await cartDao.deleteOneCart(userId, productId);
+    return deleteOneCart;
+  } 
+  else if (parseInt(quantity) > 0) {
+    const updateQuantity = await cartDao.updateQuantity(quantity, productId, userId);
+
+    return updateQuantity;
+  }
+};
+
+module.exports = { postCart, deleteAllCart, selectAllCart, deleteCart, chooseQuantity };

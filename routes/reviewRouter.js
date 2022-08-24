@@ -1,15 +1,14 @@
 const express = require("express");
 const reviewController = require("../controllers/reviewController");
 const auth = require("../middlewares/auth");
-const commonAuth = require("../utils/commonAuth");
 
 const router = express.Router();
 
-router.post("/:productId/review", auth.validationToken, reviewController.postReview);
-router.patch("/:productId/review", auth.validationToken, reviewController.patchReview);
-router.delete("/:productId/review", auth.validationToken, reviewController.deleteReview);
-router.get("/:productId/reviews", reviewController.getReviewList);
-router.get("/:productId/review/access",commonAuth.commonAuth);
+router.post("/product/:productId", auth.validationToken, reviewController.postReview);
+router.patch("/product/:productId/my", auth.validationToken, reviewController.patchReview);
+router.delete("/product/:productId/my", auth.validationToken, reviewController.deleteReview);
+router.get("/product/:productId", reviewController.getReviewList);
+router.get("/product/:productId/my", auth.validationToken, reviewController.getMyReviewList);
 
 module.exports = {
     router

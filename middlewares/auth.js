@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const validationToken = async (req, res, next) => {
   try {
+    
     const headers = req.headers["authorization"];
     const accessToken = headers.split(" ")[1];
     const decode = jwt.verify(accessToken, process.env.JWT_SECRET);

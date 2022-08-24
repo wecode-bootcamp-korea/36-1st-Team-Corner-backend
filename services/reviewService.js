@@ -15,7 +15,7 @@ const postReview = async (contents, productId, userId) => {
   return postReview;
 };
 
-const patchReview = async (contents, productId, userId) => {
+const patchReview = async (reviewId, contents, productId, userId) => {
   validateproductId(productId);
 
   if (contents.trim().length === 0) {
@@ -24,15 +24,15 @@ const patchReview = async (contents, productId, userId) => {
     throw err;
   }
 
-  const patchReview = await reviewDao.editedReview(contents, productId, userId);
+  const patchReview = await reviewDao.editedReview(reviewId, contents, productId, userId);
 
   return patchReview;
 };
 
-const deleteReview = async (productId, userId) => {
+const deleteReview = async (reviewId, productId, userId) => {
   validateproductId(productId);
 
-  const deleteReview = await reviewDao.deleteReview(productId, userId);
+  const deleteReview = await reviewDao.deleteReview(reviewId, productId, userId);
 
   return deleteReview;
 };
@@ -45,9 +45,16 @@ const getReviewList = async (productId) => {
   return getReviewList;
 }
 
+const getMyReviewList = async (productId, userId) => {
+  validateproductId(productId);
+  const getMyReviewList = await reviewDao.getMyReviewList(productId, userId);
+  return getMyReviewList;
+};
+
 module.exports = {
   postReview,
   patchReview,
   deleteReview,
-  getReviewList
+  getReviewList,
+  getMyReviewList
 };
