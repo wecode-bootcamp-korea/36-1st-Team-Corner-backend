@@ -1,8 +1,8 @@
 const { appDataSource } = require("./dataSource")
 
 const getAllCart = async (userId) => {
-    try {
-      return await appDataSource.query(
+      
+      const carts = await appDataSource.query(
         `SELECT
         c.quantity,
         c.product_id,
@@ -16,11 +16,12 @@ const getAllCart = async (userId) => {
       WHERE c.user_id = ${userId}
         `
       );
-    } catch (err) {
-      const error = new Error("PRODUCT_DOES_NOT_EXIST");
-      error.statusCode = 400;
-      throw error;
-    }
-  };
+      if(!carts) {
+        const error = new Error("CART_DOES_NOT_EXIST");
+        error.statusCode = 400;
+        throw error;}
+      return carts
+      }
+
 module.exports = {getAllCart};
   

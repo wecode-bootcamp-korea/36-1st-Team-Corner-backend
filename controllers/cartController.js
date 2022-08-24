@@ -5,6 +5,7 @@ const getCarts = async (req, res) => {
         const userId = req.userId;
         
         const allCart = await cartService.getCarts(userId);
+        
         return res.status(201).json({
             "data" : allCart
         });
