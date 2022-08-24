@@ -25,6 +25,7 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (id) => {
   const [user] = await appDataSource.query(
+
     `SELECT *
      FROM users u
      WHERE u.id = ?
