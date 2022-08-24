@@ -35,7 +35,7 @@ const postCart = async (quantity, productId, userId) => {
     }
   } else {
     const err = new Error("CANNOT_ORDER_QUANTITY_LARGER_THAN_STOCK");
-    err.statusCode = 401;
+    err.statusCode = 400;
     throw err;
   }
 };
