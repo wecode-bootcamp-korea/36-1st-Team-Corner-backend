@@ -4,8 +4,8 @@ const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.post("/product/:productId", auth.validateToken, cartController.postCart);
-router.get("/counting", auth.validateToken, cartController.countUserCart);
+router.post("/product/:productId", auth.validationToken, cartController.postCart);
+router.get("/counting", auth.validationToken, cartController.countUserCart);
 
 module.exports = {
     router
