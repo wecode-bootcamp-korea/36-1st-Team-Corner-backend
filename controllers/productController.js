@@ -14,7 +14,7 @@ const productList = async (req, res) => {
     
         const list = await productService.productList(page, pageSize, cate, orderBy)
         
-        res.status(200).json({data: list})
+        res.status(200).json({products: list[0], count : list[1]})
         }
     catch (err) {console.log(err);
         return res.status(err.statusCode || 500).json({ message: err.message });

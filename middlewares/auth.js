@@ -11,7 +11,7 @@ const validationToken = async (req, res, next) => {
 
     if (!user) {
       res.status(404).json({ message: "USER_NOT_FOUND" });
-    } else {
+    }else{
       req.userId = userId;
       next();
     }
@@ -20,4 +20,6 @@ const validationToken = async (req, res, next) => {
   }
 };
 
-module.exports = { validationToken };
+module.exports = {
+  validationToken,
+};
