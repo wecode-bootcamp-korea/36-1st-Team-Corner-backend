@@ -35,12 +35,26 @@ const deleteReview = async (reviewId, userId) => {
   return deleteReview;
 };
 
-const getMyReviewList = async (productId, userId) => {
+const getMyReviewList = async (page, pageSize, productId, userId) => {
   validateproductId(productId);
-  
-  const getMyReviewList = await reviewDao.getMyReviewList(productId, userId);
-  
-  return getMyReviewList;
+
+  const myReviewCount = await reviewDao.countMyReview(productId, userId);
+
+  if(myReviewCount < pageSize) {
+    pageSize = 5;
+  }
+
+  let start = 0;
+
+  if(page <=0) {
+    page = 1;
+  } else {
+    start = (page - 1) * pageSize;
+  }
+
+  const myReviewList = await reviewDao.myReviewList(start, pageSize, productId, userId);
+
+  return myReviewList;
 };
 
 const getReviewList = async (page, pageSize, productId) => {
@@ -60,7 +74,7 @@ const getReviewList = async (page, pageSize, productId) => {
     start = (page - 1) * pageSize;
   }
   const reviewList = await reviewDao.reviewList(start, pageSize, productId);
-
+  
   return reviewList;
 };
 
