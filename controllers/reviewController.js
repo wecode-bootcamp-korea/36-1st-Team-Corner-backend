@@ -78,11 +78,19 @@ const getReviewList = async (req, res) => {
 
 const getMyReviewList = async (req, res) => {
   try {
+    const paging = req.query;
+    const page = parseInt(paging.page);
+    const pageSize = parseInt(paging.pageSize);
+
     const { productId } = req.params;
     const userId = req.userId;
 
-    const myReviewList = await reviewService.getMyReviewList(productId, userId);
-    return res.status(200).json({ reviewList : myReviewList});
+    if (!page || !pageSize) {
+      return res.status(400).json({ message: "KEY_ERROR" });
+    }
+
+    const myReviewList = await reviewService.getMyReviewList(page, pageSize, productId, userId);
+    return res.status(200).json({ reviewList : myReviewList[0], reviewCount : myReviewList[1]});
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
