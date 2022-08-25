@@ -91,7 +91,7 @@ const chooseQuantity = async (quantity, productId, userId) => {
   
   if(quantity > checkStock){
     const err = new Error("CANNOT_ORDER_QUANTITY_LARGER_THAN_STOCK");
-    err.statusCode = 401;
+    err.statusCode = 400;
     throw err;
   }
 
