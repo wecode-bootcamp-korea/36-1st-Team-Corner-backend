@@ -6,7 +6,8 @@ const deleteAllCart = async (req, res) => {
       const userId = req.userId;
   
       await cartService.deleteAllCart(userId);
-      return res.status(204).json({
+
+      return res.status(200).json({
         message: "CART_DELETE_SUCCESS",
       });
     } catch (err) {
@@ -21,9 +22,13 @@ const deleteCart = async (req, res) => {
     const userId = req.userId;
     const {productId} = req.params;
     
+    if(!productId){
+      return res.status(400).json({ message: 'UNKNOWN_VALUE' });
+    }
     await cartService.deleteCart(userId, productId);
-    return res.status(204).json({
-      message: "CART_DELETE_SUCCESS",
+
+    return res.status(200).json({
+      message: "CART_DELETE_SUCCESS"
     });
   } catch (err) {
     console.log(err);
