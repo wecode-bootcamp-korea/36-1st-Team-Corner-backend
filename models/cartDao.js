@@ -118,6 +118,17 @@ const countUserCart = async (userId) => {
   return parseInt(Object.values(cartCounting));
 };
 
+const updateQuantity = async (quantity, productId, userId) => {
+  
+    await appDataSource.query(
+      `UPDATE carts 
+       SET quantity = ${quantity}
+       WHERE product_id = ${productId} 
+       AND user_id = ${userId}
+       `
+    )
+};
+
 module.exports = {
   existProduct,
   postCart,
@@ -127,7 +138,8 @@ module.exports = {
   countUserCart,
   getAllCart,
   deleteAllCart,
-  deleteOneCart
+  deleteOneCart,
+  updateQuantity
 };
 
 
