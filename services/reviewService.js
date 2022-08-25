@@ -15,8 +15,7 @@ const postReview = async (contents, productId, userId) => {
   return postReview;
 };
 
-const patchReview = async (reviewId, contents, productId, userId) => {
-  validateproductId(productId);
+const patchReview = async (reviewId, contents, userId) => {
 
   if (contents.trim().length === 0) {
     const err = new Error("CONTENTS_CANNOT_BE_EMPTY");
@@ -24,15 +23,14 @@ const patchReview = async (reviewId, contents, productId, userId) => {
     throw err;
   }
 
-  const patchReview = await reviewDao.editedReview(reviewId, contents, productId, userId);
+  const patchReview = await reviewDao.editedReview(reviewId, contents, userId);
 
   return patchReview;
 };
 
-const deleteReview = async (reviewId, productId, userId) => {
-  validateproductId(productId);
+const deleteReview = async (reviewId, userId) => {
 
-  const deleteReview = await reviewDao.deleteReview(reviewId, productId, userId);
+  const deleteReview = await reviewDao.deleteReview(reviewId, userId);
 
   return deleteReview;
 };

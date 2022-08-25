@@ -22,7 +22,7 @@ const postReview = async (req, res) => {
 
 const patchReview = async (req, res) => {
   try {
-    const { reviewId, productId } = req.params;
+    const { reviewId } = req.params;
     const { contents } = req.body;
     const userId = req.userId;
 
@@ -30,7 +30,7 @@ const patchReview = async (req, res) => {
       return res.status(400).json({ message: "KEY_ERROR" });
     }
 
-    await reviewService.patchReview(reviewId ,contents, productId, userId);
+    await reviewService.patchReview(reviewId ,contents, userId);
     return res.status(204).json({
       message: "REVIEW_EDITED_SUCCESS",
     });
@@ -42,10 +42,10 @@ const patchReview = async (req, res) => {
 
 const deleteReview = async (req, res) => {
   try {
-    const { reviewId ,productId } = req.params;
+    const { reviewId } = req.params;
     const userId = req.userId;
 
-    await reviewService.deleteReview(reviewId, productId, userId);
+    await reviewService.deleteReview(reviewId, userId);
     return res.status(200).json({
       message: "REVIEW_DELETE_SUCCESS",
     });
@@ -82,7 +82,7 @@ const getMyReviewList = async (req, res) => {
     const userId = req.userId;
 
     const myReviewList = await reviewService.getMyReviewList(productId, userId);
-    return res.status(200).json({ data : myReviewList});
+    return res.status(200).json({ reviewList : myReviewList});
   } catch (err) {
     console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });

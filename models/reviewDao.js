@@ -18,15 +18,14 @@ const createReview = async (contents, productId, userId) => {
   }
 };
 
-const editedReview = async (reviewId, contents, productId, userId) => {
+const editedReview = async (reviewId, contents, userId) => {
   try {
     return await appDataSource.query(
       `UPDATE 
             reviews 
         SET 
             contents = ? 
-        WHERE product_id = ${productId} 
-        AND user_id = ${userId}
+        WHERE user_id = ${userId}
         AND id = ${reviewId}`,
 
       [contents]
@@ -38,14 +37,13 @@ const editedReview = async (reviewId, contents, productId, userId) => {
   }
 };
 
-const deleteReview = async (reviewId, productId, userId) => {
+const deleteReview = async (reviewId, userId) => {
 
   try {
     return await appDataSource.query(
       `DELETE
          FROM reviews
-         WHERE product_id = ${productId}
-         AND user_id = ${userId}
+         WHERE user_id = ${userId}
          AND id = ${reviewId}`
     );
   } catch (err) {
