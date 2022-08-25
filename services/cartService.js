@@ -1,5 +1,29 @@
 const cartDao = require("../models/cartDao");
+const productDao = require("../models/productDao")
 const { validateQuantity, validateproductId } = require("../utils/validation");
+
+const deleteAllCart = async (userId) => {
+
+    const deleteAllCart = await cartDao.deleteAllCart(userId);
+    
+    return deleteAllCart;
+  };
+  
+const deleteCart = async (userId, productId) => {
+    validateproductId(productId);
+    
+    const allProducts = await productDao.checkAllProduct()
+    
+    if(productId > allProducts){
+      const err = new Error("PRODUCT_DOES_NOT_EXIST");
+    err.statusCode = 404;
+    throw err;
+    }
+
+    const deleteOneCart = await cartDao.deleteOneCart(userId, productId);
+    
+    return deleteOneCart;
+  };
 
 const getCarts = async (userId) => {
   
@@ -51,5 +75,6 @@ const countUserCart = async (userId) => {
   return cartCounting;
 };
 
-module.exports = {getCarts, postCart, countUserCart };
+module.exports = {getCarts, postCart, countUserCart, deleteAllCart, deleteCart };
+
 
