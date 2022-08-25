@@ -1,13 +1,11 @@
 const cartDao = require("../models/cartDao");
+const { validateQuantity, validateproductId } = require("../utils/validation");
 
 const getCarts = async (userId) => {
   
     const getAllCart = await cartDao.getAllCart(userId)
       return getAllCart
     }
-module.exports = {getCarts};
-
-const { validateQuantity, validateproductId } = require("../utils/validation");
 
 const postCart = async (quantity, productId, userId) => {
   validateproductId(productId);
