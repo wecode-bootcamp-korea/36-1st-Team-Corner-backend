@@ -2,24 +2,21 @@ const { appDataSource } = require("./dataSource");
 
 const createUser = async (email, password, name) => {
   await appDataSource.query(
-    `
-    INSERT INTO users (
+    `INSERT INTO users (
       email,
       password,
       name
-    ) VALUES (?,?,?)
-    `,
+    ) VALUES (?,?,?)`,
     [email, password, name]
   );
 };
 
 const getUserByEmail = async (email) => {
   const [user] = await appDataSource.query(
-    `
-      SELECT *
-      FROM users u
-      WHERE u.email = ?
-    `,
+    `SELECT *
+     FROM users u
+     WHERE u.email = ?`,
+
     [email]
   );
 
@@ -28,14 +25,14 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (id) => {
   const [user] = await appDataSource.query(
-    `
-      SELECT *
-      FROM users u
-      WHERE u.id = ?
+
+    `SELECT *
+     FROM users u
+     WHERE u.id = ?
     `,
     [id]
   );
-
   return user;
 };
+
 module.exports = { createUser, getUserByEmail, getUserById };
