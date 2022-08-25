@@ -15,7 +15,8 @@ const productList = async (page, pageSize, cate, orderBy) => {
         start = (page - 1) * pageSize;
       }
     const getOrderByList = await productDao.getOrderByList(start, pageSize, cate, orderBy)
-      return getOrderByList
+      
+    return getOrderByList
     }
 
 const productSearch = async (word) => {

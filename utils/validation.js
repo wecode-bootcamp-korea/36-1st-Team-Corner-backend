@@ -31,4 +31,15 @@ const validateproductId = (productId) => {
   }
 };
 
-module.exports = { validateEmail, validatePw, validateproductId };
+const validateQuantity = (quantity) => {
+  const quantityValidation = new RegExp(/^\d+$/);
+  
+  if (!quantityValidation.test(quantity)) {
+    const err = new Error("INVALID_QUANTITY");
+    err.statusCode = 400;
+    throw err;
+  }
+};
+
+module.exports = { validateEmail, validatePw, validateQuantity, validateproductId };
+
