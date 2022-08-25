@@ -18,15 +18,15 @@ const createReview = async (contents, productId, userId) => {
   }
 };
 
-const editedReview = async (contents, productId, userId) => {
+const editedReview = async (reviewId, contents, userId) => {
   try {
     return await appDataSource.query(
       `UPDATE 
             reviews 
         SET 
             contents = ? 
-        WHERE product_id = ${productId} 
-        AND user_id = ${userId}`,
+        WHERE user_id = ${userId}
+        AND id = ${reviewId}`,
 
       [contents]
     );
@@ -37,13 +37,14 @@ const editedReview = async (contents, productId, userId) => {
   }
 };
 
-const deleteReview = async (productId, userId) => {
+const deleteReview = async (reviewId, userId) => {
+
   try {
     return await appDataSource.query(
       `DELETE
          FROM reviews
-         WHERE product_id = ${productId}
-         AND user_id = ${userId}`
+         WHERE user_id = ${userId}
+         AND id = ${reviewId}`
     );
   } catch (err) {
     const error = new Error("REVIEW_DELETE_FAIL");
@@ -52,10 +53,26 @@ const deleteReview = async (productId, userId) => {
   }
 };
 
+const countReview = async (productId) => {
+  try {
+    const [reviewCounting] = await appDataSource.query(
+      `SELECT count(*)
+       FROM reviews
+       WHERE product_id = ${productId}`
+    );
+
+    return reviewCounting;
+  } catch (err) {
+    const error = new Error("THIS_PRODUCT_DOESN'T_EXIST");
+    error.statusCode = 404;
+    throw error;
+  }
+};
+
 const getReviewList = async (productId) => {
   try {
     return await appDataSource.query(
-        `SELECT 
+      `SELECT 
             r.id, 
             r.contents, 
             r.created_at, 
@@ -63,7 +80,7 @@ const getReviewList = async (productId) => {
          FROM reviews r 
          LEFT JOIN users u 
          on r.user_id = u.id 
-         WHERE r.product_id = ${productId}`,
+         WHERE r.product_id = ${productId}`
     );
   } catch (err) {
     const error = new Error("THIS_PRODUCT_DOESN'T_EXIST");
@@ -72,4 +89,69 @@ const getReviewList = async (productId) => {
   }
 };
 
-module.exports = { createReview, editedReview, deleteReview, getReviewList };
+const getMyReviewList = async (productId, userId) => {
+  try {
+    return await appDataSource.query(
+      `SELECT 
+          r.id, 
+          r.contents, 
+          r.created_at, 
+          u.name 
+       FROM reviews r 
+       LEFT JOIN users u 
+       on r.user_id = u.id 
+       WHERE r.product_id = ${productId} 
+       AND u.id = ${userId}`
+    );
+  } catch (err) {
+    const error = new Error("THIS_PRODUCT_DOESN'T_EXIST");
+    error.statusCode = 404;
+    throw error;
+  }
+};
+
+const reviewList = async (start, pageSize, productId) => {
+      const queryRunner = appDataSource.createQueryRunner();
+      await queryRunner.connect();
+
+      await queryRunner.startTransaction()
+
+      try {
+        const reviewList = await queryRunner.query(
+          `SELECT 
+                r.id, 
+                r.contents, 
+                r.created_at, 
+                u.name 
+            FROM reviews r 
+            LEFT JOIN users u 
+            on r.user_id = u.id 
+            WHERE r.product_id = ${productId}
+            LIMIT ${start},${pageSize}`
+       );
+        const reviewCount = await queryRunner.query(
+          `SELECT count(*) as reviewCount
+          FROM reviews
+          WHERE product_id = ${productId}`
+        );
+
+        await queryRunner.commitTransaction()
+        return [reviewList, reviewCount];
+
+      } catch (err) {
+          await queryRunner.rollbackTransactrsion()
+      } finally {
+          await queryRunner.release()
+      }
+  };
+
+
+module.exports = {
+  createReview,
+  editedReview,
+  deleteReview,
+  getReviewList,
+  getMyReviewList,
+  countReview,
+  reviewList,
+};
