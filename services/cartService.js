@@ -12,9 +12,9 @@ const deleteAllCart = async (userId) => {
 const deleteCart = async (userId, productId) => {
     validateproductId(productId);
     
-    const AllProduct = await productDao.checkAllProduct()
+    const allProducts = await productDao.checkAllProduct()
     
-    if(productId>AllProduct){
+    if(productId > allProducts){
       const err = new Error("PRODUCT_DOES_NOT_EXIST");
     err.statusCode = 404;
     throw err;
