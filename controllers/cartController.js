@@ -84,4 +84,24 @@ const countUserCart = async (req, res) => {
   }
 };
 
-module.exports = { getCarts, postCart, countUserCart, deleteAllCart, deleteCart};
+const chooseQuantity = async (req, res) => {
+  try {
+    const { quantity } = req.body
+    const { productId } = req.params;
+    const userId = req.userId;
+    
+    if (!quantity || !productId) {
+      return res.status(400).json({ message: "KEY_ERROR" });
+    }
+
+    await cartService.chooseQuantity(quantity, productId, userId);
+    return res.status(201).json({
+      message: "QUANTITY_ADD_SUCCESS",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
+
+module.exports = { getCarts, postCart, countUserCart, deleteAllCart, deleteCart, chooseQuantity};
