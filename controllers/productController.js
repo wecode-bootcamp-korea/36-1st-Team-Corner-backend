@@ -23,7 +23,6 @@ const productList = async (req, res) => {
 const productSearch = async (req, res) => {
     try {
     const pageInfo = req.query;
-    console.log(pageInfo)
     const word = pageInfo["q"]
     if (!word) {
         return res.status(400).json({ message: 'NONE_WORD' });
