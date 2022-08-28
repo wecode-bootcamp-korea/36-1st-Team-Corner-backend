@@ -15,8 +15,7 @@
 <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/Mysql 8.0-4479A1?style=for-the-badge&logo=Mysql&logoColor=white"> <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
 
 
-<img src="https://img.shields.io/badge/Nodemon-76D04B?style=for-the-badge&logo=Nodemon&logoColor=white"> 
-<img src="https://img.shields.io/badge/jsonwebtokens-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
+<img src="https://img.shields.io/badge/Nodemon-76D04B?style=for-the-badge&logo=Nodemon&logoColor=white"> <img src="https://img.shields.io/badge/jsonwebtokens-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"> <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
 
 <hr/>
 
@@ -70,8 +69,6 @@
 
 &#128073; [API 명세서 보러가기](https://docs.google.com/spreadsheets/d/1DuK0H7zI5MEbLEHq-3Y106uThtfh0ihKpdWViosK0UE/edit?usp=sharing)
 
-&#128073; [BODYLIKE 시현영상 보러가기](https://youtu.be/_TEbHw0EREg)
+&#128073; [BODYLIKE 시연 영상 보러가기](https://youtu.be/_TEbHw0EREg)
 
 <br/>
-
-<hr/>
